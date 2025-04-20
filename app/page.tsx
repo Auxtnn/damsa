@@ -7,18 +7,19 @@ import {
   // OurMission,
   Hero,
   CTA,
+  OurMission,
 } from "@/app/components";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
       <Hero />
-      {/* <OurMission /> */}
+      <OurMission />
       <Services />
       <Partners />
+      <PieConcepts />
       <TestimonialMain />
       <CTA />
-      <PieConcepts />
     </main>
   );
 }

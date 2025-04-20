@@ -40,7 +40,7 @@ export default function ServicesMain() {
                 Investment Solutions
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gradient-primary">
-                Digital Asset Portfolio Investment
+                Digital Asset Portfolio Development
               </h2>
               <p className="text-indigo-100/80 mb-6 leading-relaxed">
                 Leverage our data-driven strategies for maximizing returns while
@@ -461,7 +461,7 @@ export default function ServicesMain() {
                 Technology Solutions
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gradient-primary">
-                DLT Solutions
+                DLT Protocols
               </h2>
               <p className="text-indigo-100/80 mb-6 leading-relaxed">
                 Harness the power of distributed ledger technology for your
@@ -509,7 +509,7 @@ export default function ServicesMain() {
                 Content Solutions
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gradient-primary">
-                Media Curation
+                Digital Asset Media
               </h2>
               <p className="text-indigo-100/80 mb-6 leading-relaxed">
                 Stay informed with our expertly curated media content on digital

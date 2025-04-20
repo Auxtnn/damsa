@@ -80,7 +80,7 @@ export default function DLTSolutionsPage() {
           >
             <span className="text-gradient-primary">DLT</span>
 
-            <span className="text-white">Solutions</span>
+            <span className="text-white">Protocols</span>
           </motion.h1>
 
           <motion.p
@@ -1456,7 +1456,7 @@ export default function DLTSolutionsPage() {
               },
               {
                 question:
-                  "What is the typical timeline for developing a DLT solution?",
+                  "What is the typical timeline for developing a DLT protocol?",
                 answer:
                   "Project timelines vary based on complexity, but typically range from 2-3 months for simpler applications to 6-12 months for enterprise-scale solutions. We follow an agile methodology with regular deliverables and checkpoints, allowing you to see progress throughout the development process. We can provide a more specific timeline after our initial discovery and requirements gathering phase.",
               },

@@ -70,7 +70,7 @@ export default function PortfolioInvestmentPage() {
           >
             <span className="text-gradient-primary">Digital Asset</span>
             <br />
-            <span className="text-white">Portfolio Investment</span>
+            <span className="text-white">Portfolio Development</span>
           </motion.h1>
 
           <motion.p

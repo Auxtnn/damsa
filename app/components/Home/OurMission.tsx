@@ -83,10 +83,9 @@ export default function OurMission() {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            At DAMSA, we're revolutionizing access to digital assets and
-            decentralized ledger technology, empowering individuals worldwide to
-            generate sustainable income with confidence and reduced risk
-            exposure.
+            At DAMSA, we revolutionize digital asset access and blockchain
+            technology, empowering global users to generate sustainable income
+            safely.
           </motion.p>
         </motion.div>
 
@@ -174,12 +173,10 @@ export default function OurMission() {
                 operations, sustainable growth, and empowering communities
                 through educational resources and accessible tools.
               </p>
-              <div className="grid grid-cols-2 gap-6 mt-8">
+              {/* <div className="grid grid-cols-2 gap-6 mt-8">
                 {[
                   { number: "100+", label: "Projects Launched" },
                   { number: "30K+", label: "Community Members" },
-                  { number: "45+", label: "Countries Reached" },
-                  { number: "15M+", label: "Total Assets Managed" },
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
                     <div className="text-2xl font-bold text-purple-300 mb-1">
@@ -190,7 +187,7 @@ export default function OurMission() {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
             <div className="relative">
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-900/20 to-purple-900/20 blur-xl"></div>

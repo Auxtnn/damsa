@@ -284,6 +284,34 @@ export default function CoachingConsultingPage() {
                 </h3>
 
                 <div className="space-y-6">
+                  {/* Free Course Card */}
+                  <div className="bg-indigo-900/20 border border-indigo-500/20 rounded-lg p-4 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-bl from-purple-500/10 to-transparent"></div>
+                    <div className="absolute -right-1 -top-1">
+                      <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white text-xs font-bold px-3 py-1 transform rotate-0 translate-x-2 -translate-y-0">
+                        FREE
+                      </div>
+                    </div>
+                    <h4 className="text-indigo-100 font-medium mb-2">
+                      Introduction to Digital Assets
+                    </h4>
+                    <p className="text-indigo-200/60 text-sm mb-3">
+                      Essential concepts, blockchain basics, and basic wallet
+                      setup
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="text-indigo-300/70 text-sm">
+                          2 Weeks
+                        </span>
+                        <div className="flex items-center text-xs text-indigo-200/50 mt-1">
+                          <Calendar className="h-3 w-3 mr-1" />
+                          <span>4 Sessions</span>
+                        </div>
+                      </div>
+                      <span className="text-green-400 font-medium">FREE</span>
+                    </div>
+                  </div>
                   <div className="bg-indigo-900/20 border border-indigo-500/20 rounded-lg p-4 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-bl from-purple-500/10 to-transparent"></div>
                     <h4 className="text-indigo-100 font-medium mb-2">
@@ -303,7 +331,7 @@ export default function CoachingConsultingPage() {
                           <span>8 Sessions</span>
                         </div>
                       </div>
-                      <span className="text-purple-300 font-medium">$799</span>
+                      <span className="text-purple-300 font-medium">$150</span>
                     </div>
                   </div>
 
@@ -331,9 +359,7 @@ export default function CoachingConsultingPage() {
                           <span>16 Sessions</span>
                         </div>
                       </div>
-                      <span className="text-purple-300 font-medium">
-                        $1,499
-                      </span>
+                      <span className="text-purple-300 font-medium">$650</span>
                     </div>
                   </div>
 
@@ -357,7 +383,7 @@ export default function CoachingConsultingPage() {
                         </div>
                       </div>
                       <span className="text-purple-300 font-medium">
-                        $2,999
+                        $1,250
                       </span>
                     </div>
                   </div>
@@ -478,7 +504,7 @@ export default function CoachingConsultingPage() {
                     Starting from
                   </span>
                   <span className="text-3xl font-bold text-gradient-primary">
-                    $5,000
+                    $1,500
                   </span>
                   <span className="block text-indigo-200/60 text-sm mt-1">
                     Customized to your team size and needs
@@ -703,7 +729,9 @@ export default function CoachingConsultingPage() {
                     </div>
 
                     <a
-                      href="#"
+                      href="https://t.me/+2348036441014"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-indigo-300 hover:text-purple-300 text-sm font-medium inline-flex items-center transition-colors"
                     >
                       Access Resource
@@ -963,11 +991,13 @@ export default function CoachingConsultingPage() {
             </a>
 
             <a
-              href="#"
+              href="https://t.me/+2348036441014"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group relative inline-flex items-center px-8 py-4 overflow-hidden rounded-lg bg-transparent border border-indigo-500/30 text-indigo-200 font-medium backdrop-blur-sm hover:border-indigo-400/50 transition-all"
             >
               <span className="relative z-10 flex items-center justify-center">
-                Browse Free Resources
+                Get Free Course
               </span>
               <span className="absolute inset-0 bg-gradient-to-r from-indigo-900/30 to-purple-900/30 opacity-0 group-hover:opacity-100 transition-opacity"></span>
             </a>

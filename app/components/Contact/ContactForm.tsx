@@ -211,10 +211,10 @@ export default function ContactForm() {
                           Coaching & Consulting
                         </option>
                         <option className="text-black" value="dlt">
-                          DLT Solutions
+                          DLT Protocols
                         </option>
                         <option className="text-black" value="media">
-                          Media Curation
+                          Digital Asset Media
                         </option>
                       </select>
                       <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
@@ -338,7 +338,7 @@ export default function ContactForm() {
                   {
                     question: "What is the minimum investment?",
                     answer:
-                      "Our entry-level portfolios start at $1,000, but we work with clients at all levels. We'll create a customized strategy based on your resources.",
+                      "Our entry-level portfolios start at $100, but we work with clients at all levels. We'll create a customized strategy based on your resources.",
                   },
                   {
                     question: "How do you ensure security?",

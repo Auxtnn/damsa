@@ -25,23 +25,23 @@ export default function Services() {
   const services = [
     {
       icon: <LineChart size={28} />,
-      title: "Digital Asset Portfolio",
+      title: "Digital Asset Portfolio Development",
       description:
-        "Leverage our data-driven strategies for maximizing returns while minimizing risk exposure. Our portfolio management combines cutting-edge analytics with deep market expertise to position your digital assets for optimal growth.",
+        "Leverage our data-driven strategies for maximizing returns while minimizing risk exposure. Our portfolio development combines cutting-edge analytics with deep market expertise to position your digital assets for optimal growth.",
       delay: 0.2,
     },
     {
       icon: <DollarSign size={28} />,
       title: "Merchant Services",
       description:
-        "Seamlessly integrate digital asset payments into your business with our secure, low-fee merchant solutions. We provide robust infrastructure, multi-chain support, and detailed analytics to transform how your business handles transactions.",
+        "Seamlessly integrate digital asset merchant solutions into your business with our secure, zero fees, low rates & multi-chain support. We provide robust infrastructure, multi-chain support, and detailed analytics to transform how your business handles transactions.",
       delay: 0.4,
     },
     {
       icon: <BookOpen size={28} />,
-      title: "Expert Consultation",
+      title: "Training & Consultation",
       description:
-        "Navigate the complex digital asset landscape with confidence through our personalized advisory services. Our consultants provide tailored guidance on investment strategies, regulatory compliance, and technological integration.",
+        "Navigate the complex digital asset landscape with confidence through our training and personalized advisory services. Our consultants provide tailored guidance on investment strategies, regulatory compliance, and technological integration.",
       delay: 0.6,
     },
   ];
@@ -95,7 +95,7 @@ export default function Services() {
 
           {/* Section title */}
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 relative inline-block">
-            <span className="text-gradient-primary">Premium Solutions</span>
+            <span className="text-gradient-primary">Premium Services</span>
             <motion.div
               className="absolute -bottom-3 left-1/2 h-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full"
               initial={{ width: "0%", x: "-50%" }}
@@ -107,9 +107,9 @@ export default function Services() {
 
           {/* Section description */}
           <p className="text-lg text-indigo-100/70 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive digital asset solutions designed to empower your
-            financial future. From portfolio management to education, we provide
-            the tools for your success.
+            From Consulting, Training & Portfolio development, we leverage
+            digital asset & DLT (distributed ledger technology) protocols to
+            empower anyone for greater good.
           </p>
         </motion.div>
 

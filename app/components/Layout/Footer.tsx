@@ -75,9 +75,8 @@ const Footer: React.FC = () => {
             </Link>
 
             <p className="text-indigo-100/60 leading-relaxed">
-              Digital Asset & Protocol Consulting, empowering users to navigate
-              the digital asset landscape with confidence and maximize
-              opportunities.
+              Leveraging Digital Asset & Protocols to create a better future for
+              everyone.
             </p>
 
             <div className="flex space-x-5">
@@ -129,7 +128,7 @@ const Footer: React.FC = () => {
                 { label: "Home", href: "/" },
                 { label: "About Us", href: "/about" },
                 { label: "Services", href: "/services" },
-                { label: "Join Community", href: "/community" },
+
                 { label: "Contact", href: "/contact" },
               ].map((link, index) => (
                 <li key={index}>
@@ -146,6 +145,20 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  className="text-indigo-200/60 hover:text-purple-300 transition-colors flex items-center group"
+                  target="_blank"
+                  href="https://t.me/+AwRR3CM2LcU1ZjY0"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 mr-2.5 group-hover:bg-purple-400 transition-colors"></div>
+                  Join Community
+                  <ArrowUpRight
+                    size={12}
+                    className="ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                  />
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -158,7 +171,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {[
                 {
-                  label: "Portfolio Investment",
+                  label: "Portfolio Development",
                   href: "/services/portfolio-investment",
                 },
                 {
@@ -169,8 +182,11 @@ const Footer: React.FC = () => {
                   label: "Coaching & Consulting",
                   href: "/services/coaching-consulting",
                 },
-                { label: "DLT Solutions", href: "/services/dlt-solutions" },
-                { label: "Media Curation", href: "/services/media-curation" },
+                { label: "DLT Protocols", href: "/services/dlt-solutions" },
+                {
+                  label: "Digital Asset Media",
+                  href: "/services/media-curation",
+                },
               ].map((service, index) => (
                 <li key={index}>
                   <Link
@@ -210,20 +226,6 @@ const Footer: React.FC = () => {
                   </a>
                 </div>
               </li>
-              <li className="flex items-start group">
-                <div className="w-8 h-8 rounded-full bg-indigo-900/30 border border-indigo-500/30 flex items-center justify-center mr-3 text-indigo-300 group-hover:border-indigo-400 transition-colors">
-                  <Phone size={15} />
-                </div>
-                <div>
-                  <p className="text-xs text-indigo-300/50 mb-1">Call Us</p>
-                  <a
-                    href="tel:+11234567890"
-                    className="text-indigo-200/80 hover:text-purple-300 transition-colors"
-                  >
-                    +1 (123) 456-7890
-                  </a>
-                </div>
-              </li>
             </ul>
           </div>
         </div>
@@ -232,7 +234,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-indigo-500/10 py-8 mb-8">
           <div className="text-center mb-6">
             <span className="text-xs font-medium text-indigo-300/60 uppercase tracking-wider">
-              Trusted Partners
+              Affiliate Partners
             </span>
           </div>
           <div className="flex flex-wrap justify-center gap-8 items-center opacity-60">

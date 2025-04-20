@@ -90,7 +90,7 @@ export default function ContactHero() {
 
         {/* Contact cards */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-1 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -102,13 +102,6 @@ export default function ContactHero() {
               info: "info@damsa.network",
               link: "mailto:info@damsa.network",
               color: "from-indigo-600 to-blue-400",
-            },
-            {
-              icon: <Phone className="h-6 w-6" />,
-              title: "Call Us",
-              info: "+1 (123) 456-7890",
-              link: "tel:+11234567890",
-              color: "from-purple-600 to-indigo-400",
             },
           ].map((item, index) => (
             <motion.a

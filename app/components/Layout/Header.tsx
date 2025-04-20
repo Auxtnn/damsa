@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Rocket } from "lucide-react";
-
+import DAMSALogo from "./Logo";
 // Define NavItem type
 type NavItem = {
   label: string;
@@ -21,14 +21,16 @@ const navItems: NavItem[] = [
     label: "Services",
     href: "/services",
     subItems: [
-      { label: "Portfolio Investment", href: "/services/portfolio-investment" },
+      {
+        label: "Portfolio Development",
+        href: "/services/portfolio-investment",
+      },
       { label: "Merchant Services", href: "/services/merchant-services" },
       { label: "Coaching & Consulting", href: "/services/coaching-consulting" },
-      { label: "DLT Solutions", href: "/services/dlt-solutions" },
-      { label: "Media Curation", href: "/services/media-curation" },
+      { label: "DLT Protocols", href: "/services/dlt-solutions" },
+      { label: "Digital Asset Media", href: "/services/media-curation" },
     ],
   },
-  { label: "Join Community", href: "#" },
 
   { label: "Contact", href: "/contact" },
 ];
@@ -71,41 +73,8 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 ">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <motion.div
-              className="relative w-10 h-10"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div className="absolute inset-0 bg-[#0A1128]/30 rounded-full border border-indigo-500/30 backdrop-blur-sm flex items-center justify-center">
-                <div className="text-xl font-bold relative text-white flex">
-                  <span>D</span>
-                  <motion.span
-                    className="text-purple-300"
-                    animate={{
-                      rotate: [0, 45, 45, 0],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      ease: "easeInOut",
-                    }}
-                    style={{
-                      display: "inline-block",
-                      transformOrigin: "center",
-                    }}
-                  >
-                    A
-                  </motion.span>
-                </div>
-              </div>
-            </motion.div>
-            <span className="text-white font-bold text-xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-purple-200">
-              DAMSA
-            </span>
-          </Link>
+
+          <DAMSALogo />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-2">
@@ -177,10 +146,11 @@ const Header: React.FC = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <a
-              href="/contact"
+              target="_blank"
+              href="https://t.me/+AwRR3CM2LcU1ZjY0"
               className="inline-flex items-center px-5 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300"
             >
-              Get Started
+              Join Community
               <Rocket className="ml-2 h-4 w-4" />
             </a>
           </div>
@@ -295,11 +265,12 @@ const Header: React.FC = () => {
               ))}
               <div className="pt-4 pb-2">
                 <a
-                  href="/contact"
+                  target="_blank"
+                  href="https://t.me/+AwRR3CM2LcU1ZjY0"
                   className="w-full block text-center px-5 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300"
                   onClick={closeMobileMenu}
                 >
-                  Get Started
+                  Join Community
                   <Rocket className="ml-2 h-4 w-4 inline-block" />
                 </a>
               </div>

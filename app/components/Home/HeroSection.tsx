@@ -115,7 +115,7 @@ export default function Hero() {
             </span>
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-indigo-200/80">
-            Digital Asset & Protocol Consulting
+            Digital Asset & Protocols
           </h2>
         </motion.div>
 
@@ -126,8 +126,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          Revolutionizing how the world interacts with Digital Assets through
-          expertly curated solutions that empower your financial future.
+          Curating media content for digital assets mastery & providing DLT
+          solutions that empower anyone for greater good.
         </motion.p>
 
         {/* CTA */}
@@ -167,9 +167,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
         >
-          <span className="text-xs font-medium text-indigo-300">
-            Trusted by
-          </span>
+          <span className="text-xs font-medium text-indigo-300">Partners:</span>
           <div className="flex items-center gap-3">
             {["Gradient", "Teneo", "Natix", "Silencio", "Acurast"].map(
               (partner, i) => (

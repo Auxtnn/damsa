@@ -16,6 +16,7 @@ import {
   Lightbulb,
   Heart,
 } from "lucide-react";
+import { PartnerLogos } from "../components/Home/PartnerLogos";
 
 export default function AboutPage() {
   return (
@@ -83,7 +84,7 @@ export default function AboutPage() {
           >
             Digital Asset & Protocols Agency revolutionizing how the world
             interacts with digital assets through curated media and DLT
-            solutions.
+            protocols.
           </motion.p>
         </div>
       </section>
@@ -465,34 +466,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              "Gradient",
-              "Teneo",
-              "Natix",
-              "Silencio",
-              "Grass",
-              "Denet",
-              "Acurast",
-              "Nodle",
-            ].map((partner, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.08 * index }}
-                viewport={{ once: true }}
-                className="glass-panel p-6 rounded-xl text-center group hover-glow transition-all duration-500"
-              >
-                <div className="h-24 flex items-center justify-center">
-                  {/* This would be the partner logo in production */}
-                  <div className="text-indigo-100 text-xl font-bold group-hover:text-purple-300 transition-colors">
-                    {partner}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <PartnerLogos />
         </div>
       </section>
 

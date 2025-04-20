@@ -94,8 +94,7 @@ export default function TestimonialMain() {
             viewport={{ once: true }}
           />
 
-          {/* Section description */}
-          <motion.p
+          {/* <motion.p
             className="text-xl text-indigo-100/80 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -104,7 +103,7 @@ export default function TestimonialMain() {
           >
             Hear directly from our clients who have transformed their digital
             asset journey with DAMSA's expert guidance and solutions.
-          </motion.p>
+          </motion.p> */}
         </motion.div>
 
         {/* Testimonial grid */}
@@ -138,9 +137,9 @@ export default function TestimonialMain() {
             </div>
 
             <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-gradient-secondary max-w-3xl mx-auto leading-relaxed">
-              "DAMSA's approach to digital asset management has completely
-              revolutionized how I view and interact with blockchain
-              technologies."
+              "DAMSA approach to Digital asset ‘mastery’ or ‘development’
+              has completely revolutionized how I view and interact with
+              blockchain technologies."
             </h3>
 
             <div className="flex items-center justify-center mt-8">

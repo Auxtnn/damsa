@@ -5,14 +5,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, ArrowUpRight, Sparkles } from "lucide-react";
 
 export default function CTA() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <section className="relative py-16 overflow-hidden">
       {/* Background gradients and effects */}
@@ -83,9 +75,7 @@ export default function CTA() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <span className="text-gradient-primary">
-                Transform Your Digital
-              </span>
+              <span className="text-gradient-primary">Start Your Digital</span>
               <br />
               <span className="text-gradient-secondary">
                 Asset Journey Today
@@ -100,9 +90,8 @@ export default function CTA() {
               transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              Join our network of investors and experts to unlock the full
-              potential of digital assets with minimized risk and maximized
-              opportunity.
+              Join our network and become an agent for a decentralized future
+              with digital assets one protocol at a time.
             </motion.p>
 
             {/* CTA buttons */}
@@ -127,7 +116,8 @@ export default function CTA() {
 
               {/* Secondary CTA */}
               <a
-                href="/community"
+                target="_blank"
+                href="https://t.me/+AwRR3CM2LcU1ZjY0"
                 className="group relative inline-flex items-center px-8 py-4 overflow-hidden rounded-lg bg-transparent border border-indigo-500/30 text-indigo-200 font-medium backdrop-blur-sm hover:border-indigo-400/50 transition-all"
               >
                 <span className="relative z-10 flex items-center justify-center">
@@ -150,15 +140,15 @@ export default function CTA() {
                 {
                   title: "Expert Guidance",
                   description:
-                    "1-on-1 strategy sessions with digital asset specialists",
+                    "1-on-1 strategy sessions with digital asset analyst",
                 },
                 {
                   title: "Exclusive Access",
-                  description: "First-look at new investment opportunities",
+                  description: "Early access to digital asset opportunities",
                 },
                 {
                   title: "Community Support",
-                  description: "Join a network of like-minded investors",
+                  description: "Join a network of like-minded people",
                 },
               ].map((benefit, index) => (
                 <motion.div

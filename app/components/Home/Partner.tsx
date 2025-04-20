@@ -71,7 +71,7 @@ export default function Partners() {
 
           {/* Section heading */}
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            <span className="text-gradient-primary">Partner Projects</span>
+            <span className="text-gradient-primary">Partner Protocols</span>
           </h2>
 
           {/* Animated underline */}
@@ -91,9 +91,8 @@ export default function Partners() {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            Collaborating with industry leaders to bring you cutting-edge
-            solutions and unlock new opportunities in the digital asset
-            ecosystem.
+            Collaborating with industry leaders for cutting-edge digital asset
+            solutions.
           </motion.p>
         </motion.div>
 
@@ -112,17 +111,16 @@ export default function Partners() {
               {
                 title: "Innovative Solutions",
                 description:
-                  "Access cutting-edge technologies and protocols through our strategic partnerships.",
+                  "Access cutting-edge protocols through our strategic partnerships.",
               },
               {
                 title: "Ecosystem Integration",
                 description:
-                  "Seamless interoperability between complementary platforms and services.",
+                  "Seamless interoperability and multi-chain integration.",
               },
               {
                 title: "Exclusive Opportunities",
-                description:
-                  "Early access to new features, offerings, and investment possibilities.",
+                description: "Early access to new features and offerings.",
               },
             ].map((benefit, index) => (
               <motion.div

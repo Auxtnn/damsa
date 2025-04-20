@@ -10,8 +10,6 @@ import {
 import { Smartphone, Wifi, Zap } from "lucide-react";
 
 export default function PieConcepts() {
-
-
   // Data for PIE concept cards
   const pieElements = [
     {
@@ -38,7 +36,7 @@ export default function PieConcepts() {
       letter: "E",
       title: "Energy",
       description:
-        "Commitment of time or capital to invest in building your digital future",
+        "Commitment of time or capital energy in building your digital future",
       icon: <Zap className="w-8 h-8" />,
       gradientFrom: "from-fuchsia-500",
       gradientTo: "to-purple-500",
@@ -207,15 +205,14 @@ export default function PieConcepts() {
                 Simplicity is Key
               </h3>
               <p className="text-indigo-100/80 mb-6 leading-relaxed">
-                We believe that digital asset investment shouldn't be complex.
-                Our PIE concept breaks down the essentials, making it clear that
-                anyone with basic resources can participate in the digital
-                economy.
+                We believe that digital asset shouldn't be complex. Our PIE
+                concept breaks down the essentials, making it clear that anyone
+                with basic resources can participate in the digital economy.
               </p>
               <p className="text-indigo-100/80 leading-relaxed">
                 Whether you're looking to generate passive income or actively
-                manage a digital asset portfolio, these three elements are all
-                you need to get started on your journey.
+                use digital assets, these three elements are all you need to get
+                started on your journey.
               </p>
             </div>
 
@@ -227,7 +224,8 @@ export default function PieConcepts() {
                 </h4>
                 <ul className="space-y-4">
                   {[
-                    "We provide the expertise and strategies while you provide the PIE",
+                    "We provide the protocols and strategies while you provide the PIE",
+                    "We curate media resources to help you learn and earn while mastering digital assets",
                     "Our educational resources help maximize your results with minimal input",
                     "Start small and scale up as you gain confidence in your digital asset journey",
                   ].map((point, index) => (

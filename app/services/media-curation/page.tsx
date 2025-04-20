@@ -78,9 +78,9 @@ export default function MediaCurationPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="text-gradient-primary">Media</span>
+            <span className="text-gradient-primary">Digital Asset</span>
 
-            <span className="text-white">Curation</span>
+            <span className="text-white">Media</span>
           </motion.h1>
 
           <motion.p
@@ -106,12 +106,12 @@ export default function MediaCurationPage() {
             >
               Newsletter
             </a>
-            <a
+            {/* <a
               href="#market-reports"
               className="px-6 py-2 rounded-full bg-indigo-900/30 backdrop-blur-sm border border-indigo-500/20 text-indigo-200 hover:bg-indigo-900/50 hover:border-indigo-400/50 transition-all"
             >
               Market Reports
-            </a>
+            </a> */}
             <a
               href="#educational-content"
               className="px-6 py-2 rounded-full bg-indigo-900/30 backdrop-blur-sm border border-indigo-500/20 text-indigo-200 hover:bg-indigo-900/50 hover:border-indigo-400/50 transition-all"
@@ -377,7 +377,7 @@ export default function MediaCurationPage() {
       </section>
 
       {/* Market Reports Section */}
-      <section id="market-reports" className="relative py-12 overflow-hidden">
+      {/* <section id="market-reports" className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-[#0A1128] z-0">
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128] via-[#1A1A40]/70 to-[#0A1128] opacity-80"></div>
         </div>
@@ -698,7 +698,7 @@ export default function MediaCurationPage() {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Educational Content Section */}
       <section
@@ -949,11 +949,12 @@ export default function MediaCurationPage() {
 
               <div className="mt-10">
                 <a
-                  href="#"
+                  href="https://t.me/+AwRR3CM2LcU1ZjY0"
+                  target="_blank"
                   className="group relative inline-flex items-center px-8 py-4 overflow-hidden rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/30 transition-all hover:shadow-xl hover:shadow-purple-500/30"
                 >
                   <span className="relative z-10 flex items-center justify-center">
-                    Try Alert Service Free
+                    Join Our Community
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity"></span>
