@@ -117,19 +117,6 @@ export const PageLoader = () => {
               >
                 <motion.div className="relative">
                   <span className="text-2xl font-bold text-white">D</span>
-                  <motion.span
-                    className="text-2xl font-bold text-white absolute -right-2.5"
-                    animate={{
-                      rotate: [0, 45, 45, 0],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                    }}
-                  >
-                    A
-                  </motion.span>
                 </motion.div>
               </motion.div>
 
