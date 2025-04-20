@@ -17,6 +17,7 @@ import {
   Globe,
   Shield,
 } from "lucide-react";
+import { FaTelegram } from "react-icons/fa6";
 
 const Footer: React.FC = () => {
   return (
@@ -82,23 +83,18 @@ const Footer: React.FC = () => {
             <div className="flex space-x-5">
               {[
                 {
-                  icon: <Facebook size={18} />,
-                  href: "https://facebook.com",
-                  color: "hover:text-blue-400 hover:border-blue-400",
-                },
-                {
                   icon: <Twitter size={18} />,
-                  href: "https://twitter.com",
+                  href: "https://x.com/damsa_jr?s=21",
                   color: "hover:text-indigo-400 hover:border-indigo-400",
                 },
                 {
                   icon: <Instagram size={18} />,
-                  href: "https://instagram.com",
+                  href: "https://www.instagram.com/digitalmerxhant?igsh=YnQ5czRyempia3V5&utm_source=qr",
                   color: "hover:text-purple-400 hover:border-purple-400",
                 },
                 {
-                  icon: <Linkedin size={18} />,
-                  href: "https://linkedin.com",
+                  icon: <FaTelegram size={18} />,
+                  href: "https://t.me/+2348036441014",
                   color: "hover:text-blue-500 hover:border-blue-500",
                 },
               ].map((social, index) => (
