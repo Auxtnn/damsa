@@ -272,8 +272,8 @@ const Footer: React.FC = () => {
 
           <div className="flex space-x-6 mt-4 md:mt-0">
             {[
-              { label: "Privacy", href: "#" },
-              { label: "Terms", href: "#" },
+              { label: "Privacy", href: "/privacy-policy" },
+              { label: "Terms", href: "/terms" },
             ].map((link, index) => (
               <Link
                 key={index}

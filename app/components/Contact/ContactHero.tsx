@@ -5,14 +5,6 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function ContactHero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <section className="relative pt-16 min-h-[50vh] flex flex-col items-center justify-center overflow-hidden">
       {/* Background with animations */}

@@ -10,12 +10,6 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background with mature dark navy and gradient overlays */}

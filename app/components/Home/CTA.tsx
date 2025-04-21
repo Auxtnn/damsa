@@ -180,14 +180,14 @@ export default function CTA() {
           viewport={{ once: true }}
         >
           <a
-            href="#"
+            href="/privacy-policy"
             className="flex items-center hover:text-indigo-200 transition-colors"
           >
             <span>Terms of Service</span>
             <ArrowUpRight size={14} className="ml-1" />
           </a>
           <a
-            href="#"
+            href="/terms"
             className="flex items-center hover:text-indigo-200 transition-colors"
           >
             <span>Privacy Policy</span>
