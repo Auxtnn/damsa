@@ -5,12 +5,12 @@ export const transporter = nodemailer.createTransport({
   secure: true,
   port: 465,
   auth: {
-    user: "info@damsa.network",
-    pass: "Fz5BEJTTTJSd",
+    user: process.env.EMAIL,
+    pass: process.env.PASS,
   },
 });
 
 export const mailOptions = {
-  from: "info@damsa.network",
-  to: "info@damsa.network",
+  from: process.env.EMAIL,
+  to: process.env.EMAIL,
 };
