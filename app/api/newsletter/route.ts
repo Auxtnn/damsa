@@ -1,6 +1,10 @@
 import { transporter, mailOptions } from "@/app/constant/nodemailer";
 import { NextResponse } from "next/server";
 
+// const BREVO_URL = process.env.BREVO_API_URL;
+
+// const BREVO_KEY = process.env.BREVO_API_KEY;
+
 const BREVO_URL = "https://api.brevo.com/v3/contacts";
 const BREVO_KEY =
   "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";
@@ -58,7 +62,7 @@ export async function POST(request: any) {
         }
       }
 
-      // 2. Send confirmation email to subscriber with brand color
+      // 2. Send confirmation email to subscriber
       await transporter.sendMail({
         from: mailOptions.from,
         to: body.email,
@@ -111,18 +115,20 @@ export async function POST(request: any) {
         `,
       });
 
-      // 3. Send notification to admin with brand color
+      // 3. Send notification to admin (optional)
       await transporter.sendMail({
         ...mailOptions,
         subject: "New Newsletter Subscription - DAMSA",
         html: `
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
-            <div style="background-color: rgba(10,17,40,0.05); border-left: 4px solid #0A1128; padding: 15px; margin-bottom: 20px;">
-              <h2 style="color: #0A1128; margin: 0 0 15px 0;">New Newsletter Subscription</h2>
+          
+            
+            <div style="background-color: #f8f9fa; border-left: 4px solid #1075BB; padding: 15px; margin-bottom: 20px;">
+              <h2 style="color: #333; margin: 0 0 15px 0;">New Newsletter Subscription</h2>
               <p style="margin: 0;"><strong>Date:</strong> ${new Date().toLocaleString()}</p>
             </div>
             
-            <div style="background-color: white; border: 1px solid #E5E7EB; border-radius: 4px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(10,17,40,0.1);">
+            <div style="background-color: white; border: 1px solid #dee2e6; border-radius: 4px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
               <p style="margin: 0 0 10px 0;"><strong>Email:</strong> ${
                 body.email
               }</p>
@@ -130,8 +136,9 @@ export async function POST(request: any) {
               <p style="margin: 0 0 10px 0;"><strong>Signup Date:</strong> ${new Date().toLocaleDateString()}</p>
             </div>
             
-            <div style="font-size: 12px; color: #6B7280; text-align: center; margin-top: 20px;">
+            <div style="font-size: 12px; color: #6c757d; text-align: center; margin-top: 20px;">
               <p>This subscriber has been added to your Brevo newsletter list.</p>
+            
             </div>
           </div>
         `,
@@ -146,6 +153,7 @@ export async function POST(request: any) {
       return NextResponse.json(
         {
           error: "Failed to process subscription",
+          message: error.message,
         },
         { status: 500 }
       );
