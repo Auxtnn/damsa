@@ -1,8 +1,9 @@
 import { transporter, mailOptions } from "@/app/constant/nodemailer";
 import { NextResponse } from "next/server";
 
-const BREVO_URL = process.env.BREVO_API_URL;
-const BREVO_KEY = process.env.BREVO_API_KEY;
+const BREVO_URL = "https://api.brevo.com/v3/contacts";
+const BREVO_KEY =
+  "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";
 
 export async function POST(request: any) {
   if (request.method === "POST") {
