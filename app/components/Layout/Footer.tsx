@@ -18,6 +18,7 @@ import {
   Shield,
 } from "lucide-react";
 import { FaTelegram } from "react-icons/fa6";
+import DAMSALogo from "./Logo";
 
 const Footer: React.FC = () => {
   return (
@@ -40,39 +41,7 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center space-x-2 group">
-              <motion.div
-                className="relative w-10 h-10"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-                <div className="absolute inset-0 bg-[#0A1128]/30 rounded-full border border-indigo-500/30 backdrop-blur-sm flex items-center justify-center">
-                  <div className="text-xl font-bold relative text-white flex">
-                    <span>D</span>
-                    <motion.span
-                      className="text-purple-300"
-                      animate={{
-                        rotate: [0, 45, 45, 0],
-                      }}
-                      transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut",
-                      }}
-                      style={{
-                        display: "inline-block",
-                        transformOrigin: "center",
-                      }}
-                    >
-                      A
-                    </motion.span>
-                  </div>
-                </div>
-              </motion.div>
-              <span className="text-white font-bold text-xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-purple-200">
-                DAMSA
-              </span>
+              <DAMSALogo />
             </Link>
 
             <p className="text-indigo-100/60 leading-relaxed">

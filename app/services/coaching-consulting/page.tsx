@@ -751,10 +751,11 @@ export default function CoachingConsultingPage() {
             viewport={{ once: true }}
           >
             <a
-              href="#"
+              target="_blank"
+              href="https://t.me/+AwRR3CM2LcU1ZjY0"
               className="inline-flex items-center text-indigo-300 hover:text-purple-300 font-medium transition-colors"
             >
-              View All Educational Resources
+              Access more Educational Resources
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </motion.div>

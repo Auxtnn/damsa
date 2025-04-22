@@ -18,34 +18,78 @@ export default function ContactForm() {
     name: "",
     email: "",
     phone: "",
+    service: "",
     subject: "",
     message: "",
-    service: "",
   });
 
-  const [formStatus, setFormStatus] = useState({
-    submitted: false,
-    submitting: false,
-    error: null,
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+    success: false,
+    error: false,
+    message: "",
   });
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setFormStatus({ submitted: false, submitting: true, error: null });
+    setIsSubmitting(true);
+    setSubmitStatus({ success: false, error: false, message: "" });
 
-    // Simulate form submission with timeout
-    setTimeout(() => {
-      setFormStatus({ submitted: true, submitting: false, error: null });
-      // Reset form after submission (optional)
-      // setFormState({ name: "", email: "", phone: "", subject: "", message: "", service: "" });
-    }, 1500);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          success: true,
+          error: false,
+          message:
+            "Thank you for your message! We'll get back to you as soon as possible.",
+        });
+
+        // Reset form after successful submission
+        setFormState({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        throw new Error(data.message || "Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus({
+        success: false,
+        error: true,
+        message:
+          error.message ||
+          "There was an error sending your message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+
+      // Auto-clear success message after 5 seconds
+      if (submitStatus.success) {
+        setTimeout(() => {
+          setSubmitStatus({ success: false, error: false, message: "" });
+        }, 5000);
+      }
+    }
   };
 
   return (
@@ -84,13 +128,11 @@ export default function ContactForm() {
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gradient-primary">
               Send Us a Message
             </h2>
-
             <p className="text-indigo-100/70 mb-8">
               Fill out the form below and our team will get back to you within
               24 hours.
             </p>
-
-            {formStatus.submitted ? (
+            {submitStatus.success && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -107,212 +149,209 @@ export default function ContactForm() {
                   shortly.
                 </p>
                 <button
-                  onClick={() =>
-                    setFormStatus({
-                      submitted: false,
-                      submitting: false,
-                      error: null,
-                    })
-                  }
+                  onClick={() => {
+                    setSubmitStatus({
+                      success: false,
+                      error: false,
+                      message: "",
+                    });
+                    setIsSubmitting(false);
+                  }}
                   className="text-indigo-300 hover:text-indigo-100 transition-colors"
                 >
                   Send another message
                 </button>
               </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Name field */}
-                  <div className="relative">
-                    <label className="text-sm font-medium text-indigo-200 mb-1 block">
-                      Your Name
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="name"
-                        value={formState.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
-                        placeholder="John Doe"
-                      />
-                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
-                        <User size={16} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Email field */}
-                  <div className="relative">
-                    <label className="text-sm font-medium text-indigo-200 mb-1 block">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        name="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
-                        placeholder="your@email.com"
-                      />
-                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
-                        <Mail size={16} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Phone field */}
-                  <div className="relative">
-                    <label className="text-sm font-medium text-indigo-200 mb-1 block">
-                      Phone Number (Optional)
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formState.phone}
-                        onChange={handleChange}
-                        className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
-                        placeholder="+1 (123) 456-7890"
-                      />
-                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
-                        <Phone size={16} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Service dropdown */}
-                  <div className="relative">
-                    <label className="text-sm font-medium text-indigo-200 mb-1 block">
-                      Service Interest
-                    </label>
-                    <div className="relative">
-                      <select
-                        name="service"
-                        value={formState.service}
-                        onChange={handleChange}
-                        className="w-full bg-indigo-900/20  border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 appearance-none pl-10"
-                      >
-                        <option value="" disabled>
-                          Select a service
-                        </option>
-                        <option className="text-black" value="portfolio">
-                          Portfolio Investment
-                        </option>
-                        <option className="text-black" value="merchant">
-                          Merchant Services
-                        </option>
-                        <option className="text-black" value="coaching">
-                          Coaching & Consulting
-                        </option>
-                        <option className="text-black" value="dlt">
-                          DLT Protocols
-                        </option>
-                        <option className="text-black" value="media">
-                          Digital Asset Media
-                        </option>
-                      </select>
-                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
-                        <BriefcaseBusiness size={16} />
-                      </div>
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-indigo-400 pointer-events-none">
-                        <svg
-                          className="w-4 h-4 fill-current"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Subject field */}
+            )}{" "}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Name field */}
                 <div className="relative">
                   <label className="text-sm font-medium text-indigo-200 mb-1 block">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formState.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500"
-                    placeholder="How can we help you?"
-                  />
-                </div>
-
-                {/* Message field */}
-                <div className="relative">
-                  <label className="text-sm font-medium text-indigo-200 mb-1 block">
-                    Your Message
+                    Your Name
                   </label>
                   <div className="relative">
-                    <textarea
-                      name="message"
-                      value={formState.message}
+                    <input
+                      type="text"
+                      name="name"
+                      value={formState.name}
                       onChange={handleChange}
                       required
-                      rows={5}
                       className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
-                      placeholder="Tell us about your project or questions..."
-                    ></textarea>
-                    <div className="absolute left-3 top-6 text-indigo-400">
-                      <MessageSquare size={16} />
+                      placeholder="John Doe"
+                    />
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
+                      <User size={16} />
                     </div>
                   </div>
                 </div>
 
-                {/* Submit button */}
-                <div>
-                  <button
-                    type="submit"
-                    disabled={formStatus.submitting}
-                    className="group relative w-full inline-flex items-center justify-center px-8 py-4 overflow-hidden rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/30 transition-all hover:shadow-xl hover:shadow-purple-500/30 disabled:opacity-70"
-                  >
-                    <span className="relative z-10 flex items-center justify-center">
-                      {formStatus.submitting ? (
-                        <>
-                          <svg
-                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            ></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                          </svg>
-                          Sending Message...
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                        </>
-                      )}
-                    </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                  </button>
+                {/* Email field */}
+                <div className="relative">
+                  <label className="text-sm font-medium text-indigo-200 mb-1 block">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
+                      placeholder="your@email.com"
+                    />
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
+                      <Mail size={16} />
+                    </div>
+                  </div>
                 </div>
-              </form>
-            )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Phone field */}
+                <div className="relative">
+                  <label className="text-sm font-medium text-indigo-200 mb-1 block">
+                    Phone Number (Optional)
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formState.phone}
+                      onChange={handleChange}
+                      className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
+                      placeholder="+1 (123) 456-7890"
+                    />
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
+                      <Phone size={16} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Service dropdown */}
+                <div className="relative">
+                  <label className="text-sm font-medium text-indigo-200 mb-1 block">
+                    Service Interest
+                  </label>
+                  <div className="relative">
+                    <select
+                      name="service"
+                      value={formState.service}
+                      onChange={handleChange}
+                      className="w-full bg-indigo-900/20  border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 appearance-none pl-10"
+                    >
+                      <option value="" disabled>
+                        Select a service
+                      </option>
+                      <option className="text-black" value="portfolio">
+                        Portfolio Investment
+                      </option>
+                      <option className="text-black" value="merchant">
+                        Merchant Services
+                      </option>
+                      <option className="text-black" value="coaching">
+                        Coaching & Consulting
+                      </option>
+                      <option className="text-black" value="dlt">
+                        DLT Protocols
+                      </option>
+                      <option className="text-black" value="media">
+                        Digital Asset Media
+                      </option>
+                    </select>
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400">
+                      <BriefcaseBusiness size={16} />
+                    </div>
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-indigo-400 pointer-events-none">
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Subject field */}
+              <div className="relative">
+                <label className="text-sm font-medium text-indigo-200 mb-1 block">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formState.subject}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500"
+                  placeholder="How can we help you?"
+                />
+              </div>
+
+              {/* Message field */}
+              <div className="relative">
+                <label className="text-sm font-medium text-indigo-200 mb-1 block">
+                  Your Message
+                </label>
+                <div className="relative">
+                  <textarea
+                    name="message"
+                    value={formState.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    className="w-full bg-indigo-900/20 border border-indigo-500/30 text-indigo-100 px-4 py-3 rounded-lg focus:outline-none focus:border-purple-500 pl-10"
+                    placeholder="Tell us about your project or questions..."
+                  ></textarea>
+                  <div className="absolute left-3 top-6 text-indigo-400">
+                    <MessageSquare size={16} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit button */}
+              <div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group relative w-full inline-flex items-center justify-center px-8 py-4 overflow-hidden rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/30 transition-all hover:shadow-xl hover:shadow-purple-500/30 disabled:opacity-70"
+                >
+                  <span className="relative z-10 flex items-center justify-center">
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                </button>
+              </div>
+            </form>
           </motion.div>
 
           {/* Right Column - Additional Info */}

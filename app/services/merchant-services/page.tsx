@@ -678,11 +678,13 @@ export default function MerchantServicesPage() {
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
-              href="/signup"
+             
+              target="_blank"
+              href="https://t.me/+AwRR3CM2LcU1ZjY0"
               className="group relative inline-flex items-center px-8 py-4 overflow-hidden rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/30 transition-all hover:shadow-xl hover:shadow-purple-500/30"
             >
               <span className="relative z-10 flex items-center justify-center">
-                Create Free Account
+                Join Community
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </span>
               <span className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity"></span>

@@ -2,11 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Newsletter from "@/app/components/Newsletter/NewsletterForm";
 import {
   Film,
   FileText,
   Rss,
   Newspaper,
+  Send,
   ArrowRight,
   CheckCircle,
   Podcast,
@@ -18,13 +20,77 @@ import {
 } from "lucide-react";
 
 export default function MediaCurationPage() {
-  const [mounted, setMounted] = useState(false);
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+    success: false,
+    error: false,
+    message: "",
+  });
 
-  if (!mounted) return null;
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ success: false, error: false, message: "" });
+
+    try {
+      const response = await fetch("/api/content", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          success: true,
+          error: false,
+          message:
+            "Thank you for your request! We'll get back to you as soon as possible.",
+        });
+
+        // Reset form after successful submission
+        setFormState({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        throw new Error(data.message || "Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus({
+        success: false,
+        error: true,
+        message:
+          error.message ||
+          "There was an error sending your message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+
+      // Auto-clear success message after 5 seconds
+      if (submitStatus.success) {
+        setTimeout(() => {
+          setSubmitStatus({ success: false, error: false, message: "" });
+        }, 5000);
+      }
+    }
+  };
 
   return (
     <main className="bg-[#0A1128]">
@@ -194,512 +260,76 @@ export default function MediaCurationPage() {
           </div>
         </div>
       </section>
-
       {/* Newsletter Section */}
       <section id="newsletter" className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-[#0A1128] z-0">
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128] via-[#1A1A40]/70 to-[#0A1128] opacity-80"></div>
         </div>
 
-        <div className="lg:w-11/12 container  mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            className="grid md:grid-cols-2 gap-16 items-center"
+            className="max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div>
-              <div className="inline-block mb-4 px-3 py-1 rounded-full bg-indigo-900/30 backdrop-blur-sm border border-indigo-500/20 text-xs font-medium text-indigo-300 uppercase tracking-wider">
+            <div className="text-center">
+              <div className="inline-block mx-auto mb-4 px-3 py-1 rounded-full bg-indigo-900/30 backdrop-blur-sm border border-indigo-500/20 text-xs font-medium text-indigo-300 uppercase tracking-wider">
                 Weekly Updates
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gradient-primary">
                 Curated Newsletter
               </h2>
-              <p className="text-indigo-100/80 mb-8 leading-relaxed">
+              <p className="text-indigo-100/80 mb-8 leading-relaxed max-w-2xl mx-auto">
                 Our weekly newsletter delivers the most important digital asset
                 updates, market insights, and educational content directly to
                 your inbox. Stay informed without spending hours researching and
                 filtering through unreliable sources.
               </p>
-
-              <div className="space-y-5">
-                {[
-                  {
-                    title: "Market Analysis",
-                    description:
-                      "Expert insights on price movements, trends, and macro factors affecting digital assets",
-                  },
-                  {
-                    title: "Project Spotlights",
-                    description:
-                      "Deep dives into promising blockchain projects with strong fundamentals",
-                  },
-                  {
-                    title: "Regulatory Updates",
-                    description:
-                      "Stay informed about the evolving regulatory landscape across key jurisdictions",
-                  },
-                  {
-                    title: "Educational Resources",
-                    description:
-                      "Curated learning materials to expand your knowledge of blockchain technology and digital assets",
-                  },
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-start">
-                    <CheckCircle className="h-6 w-6 text-purple-400 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-indigo-100 font-medium mb-1">
-                        {feature.title}
-                      </h3>
-                      <p className="text-indigo-200/70">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-10">
-                <form className="flex flex-col sm:flex-row gap-4">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    className="flex-grow py-3 px-4 rounded-lg bg-indigo-900/20 border border-indigo-500/30 text-white placeholder:text-indigo-300/40 focus:outline-none focus:border-purple-500"
-                  />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center whitespace-nowrap py-3 px-6 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-purple-500/20 transition-all"
-                  >
-                    Subscribe Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </button>
-                </form>
-              </div>
             </div>
 
-            <div className="relative">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-900/30 to-purple-900/30 blur-2xl"></div>
-              <div className="relative glass-panel p-8 rounded-xl">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 backdrop-blur-sm">
-                    <Rss className="h-8 w-8 text-purple-300" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+              {[
+                {
+                  title: "Market Analysis",
+                  description:
+                    "Expert insights on price movements, trends, and macro factors affecting digital assets",
+                },
+                {
+                  title: "Project Spotlights",
+                  description:
+                    "Deep dives into promising blockchain projects with strong fundamentals",
+                },
+                {
+                  title: "Regulatory Updates",
+                  description:
+                    "Stay informed about the evolving regulatory landscape across key jurisdictions",
+                },
+                {
+                  title: "Educational Resources",
+                  description:
+                    "Curated learning materials to expand your knowledge of blockchain technology and digital assets",
+                },
+              ].map((feature, index) => (
+                <div key={index} className="flex items-start">
+                  <CheckCircle className="h-6 w-6 text-purple-400 mt-1 mr-3 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-indigo-100 font-medium mb-1">
+                      {feature.title}
+                    </h3>
+                    <p className="text-indigo-200/70">{feature.description}</p>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                <h3 className="text-xl font-semibold mb-6 text-center text-indigo-100">
-                  Newsletter Preview
-                </h3>
-
-                <div className="space-y-6">
-                  <div className="rounded-lg border border-indigo-500/20 overflow-hidden">
-                    <div className="bg-indigo-900/30 px-4 py-2 border-b border-indigo-500/20 flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center mr-3">
-                        <BarChart3 className="h-4 w-4 text-indigo-300" />
-                      </div>
-                      <span className="text-indigo-100 font-medium">
-                        Weekly Market Recap
-                      </span>
-                    </div>
-                    <div className="p-4 bg-indigo-900/10">
-                      <p className="text-indigo-200/70 text-sm mb-2">
-                        Bitcoin's price action shows strong support at the $42K
-                        level with increasing institutional inflows...
-                      </p>
-                      <a
-                        href="#"
-                        className="text-purple-300 text-xs hover:text-purple-200 transition-colors"
-                      >
-                        Read More
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-indigo-500/20 overflow-hidden">
-                    <div className="bg-indigo-900/30 px-4 py-2 border-b border-indigo-500/20 flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center mr-3">
-                        <BookOpen className="h-4 w-4 text-indigo-300" />
-                      </div>
-                      <span className="text-indigo-100 font-medium">
-                        Project Spotlight: Acurast
-                      </span>
-                    </div>
-                    <div className="p-4 bg-indigo-900/10">
-                      <p className="text-indigo-200/70 text-sm mb-2">
-                        Acurast is revolutionizing oracle services with their
-                        decentralized computation framework...
-                      </p>
-                      <a
-                        href="#"
-                        className="text-purple-300 text-xs hover:text-purple-200 transition-colors"
-                      >
-                        Read More
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg border border-indigo-500/20 overflow-hidden">
-                    <div className="bg-indigo-900/30 px-4 py-2 border-b border-indigo-500/20 flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center mr-3">
-                        <Newspaper className="h-4 w-4 text-indigo-300" />
-                      </div>
-                      <span className="text-indigo-100 font-medium">
-                        Regulatory Updates
-                      </span>
-                    </div>
-                    <div className="p-4 bg-indigo-900/10">
-                      <p className="text-indigo-200/70 text-sm mb-2">
-                        New EU framework for crypto assets takes effect,
-                        providing clarity for operators...
-                      </p>
-                      <a
-                        href="#"
-                        className="text-purple-300 text-xs hover:text-purple-200 transition-colors"
-                      >
-                        Read More
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 flex items-center justify-between">
-                  <span className="text-indigo-200/60 text-xs">
-                    Delivered every Friday
-                  </span>
-                  <span className="bg-indigo-900/30 text-indigo-300 text-xs px-2 py-1 rounded border border-indigo-500/20">
-                    5,000+ Subscribers
-                  </span>
-                </div>
-              </div>
+            <div className="max-w-xl mx-auto">
+              <Newsletter />
             </div>
           </motion.div>
         </div>
       </section>
-
-      {/* Market Reports Section */}
-      {/* <section id="market-reports" className="relative py-12 overflow-hidden">
-        <div className="absolute inset-0 bg-[#0A1128] z-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128] via-[#1A1A40]/70 to-[#0A1128] opacity-80"></div>
-        </div>
-
-        <div className="lg:w-11/12 container  mx-auto px-4 relative z-10">
-          <motion.div
-            className="grid md:grid-cols-2 gap-16 items-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
-            <div className="order-2 md:order-1">
-              <div className="relative glass-panel p-8 rounded-xl">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 backdrop-blur-sm">
-                    <FileText className="h-8 w-8 text-purple-300" />
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-semibold mb-6 text-center text-indigo-100">
-                  Report Types
-                </h3>
-
-                <div className="space-y-5">
-                  <div className="p-4 rounded-lg border border-indigo-500/20 bg-indigo-900/20">
-                    <div className="flex items-start">
-                      <div className="p-2 rounded-md bg-indigo-900/50 mr-4 flex-shrink-0">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M14.31 8L20.05 17.94"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M9.69 8H21.17"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M7.38 12.0001L13.12 2.06006"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M9.69 16.0001L3.95 6.06006"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M14.31 16H2.83"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M16.62 12L10.88 21.94"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <h4 className="text-indigo-100 font-medium mb-1">
-                          Monthly Market Analysis
-                        </h4>
-                        <p className="text-indigo-200/60 text-sm">
-                          Comprehensive review of digital asset market
-                          performance with actionable insights
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-lg border border-indigo-500/20 bg-indigo-900/20">
-                    <div className="flex items-start">
-                      <div className="p-2 rounded-md bg-indigo-900/50 mr-4 flex-shrink-0">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M9 22V12H15V22"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <h4 className="text-indigo-100 font-medium mb-1">
-                          Protocol Deep Dives
-                        </h4>
-                        <p className="text-indigo-200/60 text-sm">
-                          In-depth analysis of emerging projects, tokenomics,
-                          and potential use cases
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-lg border border-indigo-500/20 bg-indigo-900/20">
-                    <div className="flex items-start">
-                      <div className="p-2 rounded-md bg-indigo-900/50 mr-4 flex-shrink-0">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 8H19C20.0609 8 21.0783 8.42143 21.8284 9.17157C22.5786 9.92172 23 10.9391 23 12C23 13.0609 22.5786 14.0783 21.8284 14.8284C21.0783 15.5786 20.0609 16 19 16H18"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M2 8H18V17C18 18.0609 17.5786 19.0783 16.8284 19.8284C16.0783 20.5786 15.0609 21 14 21H6C4.93913 21 3.92172 20.5786 3.17157 19.8284C2.42143 19.0783 2 18.0609 2 17V8Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M6 1V4"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M10 1V4"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M14 1V4"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <h4 className="text-indigo-100 font-medium mb-1">
-                          Quarterly Trends Report
-                        </h4>
-                        <p className="text-indigo-200/60 text-sm">
-                          Macro analysis of market cycles, sector rotation, and
-                          emerging trends
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-lg border border-indigo-500/20 bg-indigo-900/20">
-                    <div className="flex items-start">
-                      <div className="p-2 rounded-md bg-indigo-900/50 mr-4 flex-shrink-0">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 17H12.01"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <h4 className="text-indigo-100 font-medium mb-1">
-                          Regulatory Insights
-                        </h4>
-                        <p className="text-indigo-200/60 text-sm">
-                          Analysis of global regulatory developments and their
-                          impact on digital assets
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 text-center">
-                  <a
-                    href="#"
-                    className="text-indigo-300 hover:text-purple-300 text-sm font-medium inline-flex items-center transition-colors"
-                  >
-                    Browse sample reports
-                    <ArrowRight className="ml-1 h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="order-1 md:order-2">
-              <div className="inline-block mb-4 px-3 py-1 rounded-full bg-indigo-900/30 backdrop-blur-sm border border-indigo-500/20 text-xs font-medium text-indigo-300 uppercase tracking-wider">
-                In-Depth Analysis
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gradient-primary">
-                Market Reports
-              </h2>
-              <p className="text-indigo-100/80 mb-8 leading-relaxed">
-                Our detailed market reports provide research-backed analysis and
-                insights to help you make informed decisions in the fast-moving
-                digital asset landscape. From emerging trends to project
-                fundamentals, our reports cut through the noise to deliver
-                value.
-              </p>
-
-              <div className="space-y-5">
-                {[
-                  {
-                    title: "On-Chain Analytics",
-                    description:
-                      "Data-driven insights using blockchain metrics to identify trends and market sentiment",
-                  },
-                  {
-                    title: "Technical Analysis",
-                    description:
-                      "Professional chart analysis and price projections to inform your trading strategy",
-                  },
-                  {
-                    title: "Fundamental Research",
-                    description:
-                      "Deep evaluation of project fundamentals, team backgrounds, and technology",
-                  },
-                  {
-                    title: "Risk Assessment",
-                    description:
-                      "Comprehensive risk analysis to help you make calculated investment decisions",
-                  },
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-start">
-                    <CheckCircle className="h-6 w-6 text-purple-400 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-indigo-100 font-medium mb-1">
-                        {feature.title}
-                      </h3>
-                      <p className="text-indigo-200/70">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-10">
-                <a
-                  href="#"
-                  className="group relative inline-flex items-center px-8 py-4 overflow-hidden rounded-lg bg-transparent border border-indigo-500/30 text-indigo-200 font-medium backdrop-blur-sm hover:border-indigo-400/50 transition-all"
-                >
-                  <span className="relative z-10 flex items-center justify-center">
-                    Subscribe to Reports
-                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-indigo-900/30 to-purple-900/30 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section> */}
-
       {/* Educational Content Section */}
       <section
         id="educational-content"
@@ -845,11 +475,46 @@ export default function MediaCurationPage() {
                   <h4 className="text-xl font-bold mb-4 text-indigo-100">
                     Request Custom Content
                   </h4>
-                  <form className="space-y-4">
+                  {submitStatus.success && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-12"
+                    >
+                      <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30">
+                        <CheckCircle className="h-8 w-8 text-green-400" />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-3 text-indigo-100">
+                        Request Sent Successfully!
+                      </h3>
+                      <p className="text-indigo-200/60 mb-6">
+                        Thank you for submitting your request. We'll be in touch
+                        with you shortly.
+                      </p>
+                      <button
+                        onClick={() => {
+                          setSubmitStatus({
+                            success: false,
+                            error: false,
+                            message: "",
+                          });
+                          setIsSubmitting(false);
+                        }}
+                        className="text-indigo-300 hover:text-indigo-100 transition-colors"
+                      >
+                        Send another request
+                      </button>
+                    </motion.div>
+                  )}{" "}
+                  <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
                       <input
                         type="text"
+                        name="name"
                         placeholder="Your Name"
+                        value={formState.name}
+                        onChange={handleChange}
+                        required
                         className="w-full py-3 px-4 rounded-lg bg-indigo-900/30 border border-indigo-500/30 text-white placeholder:text-indigo-300/40 focus:outline-none focus:border-purple-500"
                       />
                     </div>
@@ -857,6 +522,10 @@ export default function MediaCurationPage() {
                       <input
                         type="email"
                         placeholder="Your Email"
+                        name="email"
+                        value={formState.email}
+                        onChange={handleChange}
+                        required
                         className="w-full py-3 px-4 rounded-lg bg-indigo-900/30 border border-indigo-500/30 text-white placeholder:text-indigo-300/40 focus:outline-none focus:border-purple-500"
                       />
                     </div>
@@ -864,15 +533,52 @@ export default function MediaCurationPage() {
                       <textarea
                         placeholder="Describe your content needs"
                         rows={3}
+                        name="message"
+                        value={formState.message}
+                        onChange={handleChange}
+                        required
                         className="w-full py-3 px-4 rounded-lg bg-indigo-900/30 border border-indigo-500/30 text-white placeholder:text-indigo-300/40 focus:outline-none focus:border-purple-500"
                       ></textarea>
                     </div>
 
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="w-full inline-flex items-center justify-center py-3 px-4 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-purple-500/20 transition-all"
                     >
-                      Submit Request
+                      <span className="relative z-10 flex items-center justify-center">
+                        {isSubmitting ? (
+                          <>
+                            <svg
+                              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                            </svg>
+                            Submitting Request...
+                          </>
+                        ) : (
+                          <>
+                            Submit Request
+                            <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                          </>
+                        )}
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     </button>
                   </form>
                 </div>
@@ -1251,23 +957,7 @@ export default function MediaCurationPage() {
             Subscribe to our newsletter today and get the insights you need to
             navigate the digital asset landscape with confidence.
           </p>
-
-          <form className="max-w-md mx-auto mb-10">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-grow py-4 px-6 rounded-lg bg-indigo-900/20 border border-indigo-500/30 text-white placeholder:text-indigo-300/40 focus:outline-none focus:border-purple-500"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center whitespace-nowrap py-4 px-6 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-purple-500/20 transition-all"
-              >
-                Subscribe
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </button>
-            </div>
-          </form>
+          <Newsletter />
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a

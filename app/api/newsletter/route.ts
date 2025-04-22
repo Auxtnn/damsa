@@ -1,11 +1,8 @@
 import { transporter, mailOptions } from "@/app/constant/nodemailer";
 import { NextResponse } from "next/server";
 
-// Replace this URL with your Brevo API endpoint
-const BREVO_API_URL = "https://api.brevo.com/v3/contacts";
-// Make sure to add your Brevo API key to your environment variables
-const BREVO_API_KEY =
-  "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";
+const BREVO_URL = process.env.BREVO_API_URL;
+const BREVO_KEY = process.env.BREVO_API_KEY;
 
 export async function POST(request: any) {
   if (request.method === "POST") {
@@ -26,16 +23,16 @@ export async function POST(request: any) {
 
     try {
       // 1. Add subscriber to Brevo list
-      const brevoResponse = await fetch(BREVO_API_URL, {
+      const brevoResponse = await fetch(BREVO_URL, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "api-key": BREVO_API_KEY,
+          "api-key": BREVO_KEY,
         },
         body: JSON.stringify({
           email: body.email,
-          listIds: [parseInt(process.env.BREVO_LIST_ID || "2")], // Replace with your actual list ID
+          listIds: [parseInt(process.env.BREVO_LIST_ID || "2")],
           updateEnabled: true,
           attributes: {
             NEWSLETTER: true,
@@ -60,84 +57,71 @@ export async function POST(request: any) {
         }
       }
 
-      // 2. Send confirmation email to subscriber
+      // 2. Send confirmation email to subscriber with brand color
       await transporter.sendMail({
         from: mailOptions.from,
         to: body.email,
-        subject: "Welcome to the Raphael Onuku Foundation Newsletter!",
+        subject: "Welcome to the DAMSA Newsletter!",
         html: `
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
             <!-- Header with Logo and Background -->
-            <div style="text-align: center; margin-bottom: 30px; padding: 40px 20px; background: linear-gradient(to right, #1075BB, #0d5f91); border-radius: 8px;">
-              <div style="display: inline-block; background-color: #ffffff; color: #1075BB; padding: 12px 24px; border-radius: 8px; font-size: 20px; font-weight: bold;">
-                Raphael Onuku Foundation
+            <div style="text-align: center; margin-bottom: 30px; padding: 40px 20px; background: linear-gradient(to bottom, #0A1128, #161F3C, #232E50); border-radius: 8px;">
+              <div style="display: inline-block; background-color: rgba(255,255,255,0.1); color: white; padding: 12px 24px; border-radius: 8px; font-size: 22px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2);">
+                DAMSA
               </div>
-              <p style="color: #ffffff; margin-top: 15px; opacity: 0.9;">Empowering Nigerian Youth Through Education</p>
+              <p style="color: #E0E7FF; margin-top: 15px;">Curating media content for digital assets mastery & providing DLT solutions that empower anyone for greater good.</p>
             </div>
             
             <!-- Main Content -->
-            <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px; margin-bottom: 30px;">
-              <h2 style="color: #1075BB; margin: 0 0 20px 0; text-align: center; border-bottom: 2px solid #EBF8FF; padding-bottom: 15px;">Thanks for Subscribing!</h2>
+            <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(10,17,40,0.15); padding: 30px; margin-bottom: 30px; border-top: 5px solid #0A1128;">
+              <h2 style="color: #0A1128; margin: 0 0 20px 0; text-align: center; border-bottom: 2px solid rgba(10,17,40,0.1); padding-bottom: 15px;">Thanks for Subscribing!</h2>
               
-              <p style="color: #4B5563; margin-bottom: 15px;">Welcome to the Raphael Onuku Foundation newsletter community!</p>
+              <p style="color: #4B5563; margin-bottom: 15px;">Welcome to the DAMSA newsletter community!</p>
               
-              <p style="color: #4B5563; margin-bottom: 15px;">You'll now receive regular updates about our programs, success stories, and upcoming events. We're excited to share our journey of empowering underprivileged Nigerian youth through education and mentorship.</p>
+              <p style="color: #4B5563; margin-bottom: 15px;">You'll now receive regular updates about our resources, market analysis, and digital media content. We're excited to share our journey of empowering underprivileged Nigerian youth through education and mentorship.</p>
               
-              <div style="background-color: #EBF8FF; border-left: 4px solid #1075BB; padding: 15px; margin: 20px 0; border-radius: 4px;">
+              <div style="background-color: rgba(10,17,40,0.05); border-left: 4px solid #0A1128; padding: 15px; margin: 20px 0; border-radius: 4px;">
                 <p style="margin: 0; color: #4B5563;"><strong>What to expect in our newsletter:</strong></p>
                 <ul style="margin-top: 10px; padding-left: 20px; color: #4B5563;">
-                  <li>Impact stories from our beneficiaries</li>
-                  <li>Updates on our educational programs</li>
-                  <li>Opportunities to get involved</li>
-                  <li>Educational resources and inspiration</li>
+                  <li>Media resources to help you learn and earn while mastering digital assets</li>
+                  <li>Educational resources help maximize your results with minimal input</li>
+                  <li>Market Reports and Technical Insights</li>
                 </ul>
               </div>
               
               <p style="color: #4B5563; margin-bottom: 15px;">If you ever wish to unsubscribe, you'll find an unsubscribe link at the bottom of every newsletter we send.</p>
               
-              <p style="color: #4B5563; margin-bottom: 15px;">Thank you for your interest in our mission!</p>
+              <p style="color: #4B5563; margin-bottom: 15px;">Thank you for your interest to start your digital asset journey with us.</p>
               
               <p style="color: #4B5563; margin-bottom: 15px;">Warm regards,</p>
-              <p style="color: #1075BB; font-weight: bold; margin-bottom: 5px;">Communications Team</p>
-              <p style="color: #4B5563; font-size: 14px; margin: 0;">Raphael Onuku Foundation</p>
+              <p style="color: #0A1128; font-weight: bold; margin-bottom: 5px;">Communications Team</p>
+              <p style="color: #4B5563; font-size: 14px; margin: 0;">DAMSA</p>
             </div>
             
             <!-- Footer -->
             <div style="border-top: 1px solid #E5E7EB; padding-top: 20px; text-align: center;">
               <div style="margin-bottom: 15px;">
-                <a href="https://facebook.com/raphaelonukufoundation" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/facebook.svg" alt="Facebook" style="width: 20px; height: 20px;"></a>
-                <a href="https://twitter.com/rof_nigeria" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/twitter.svg" alt="Twitter" style="width: 20px; height: 20px;"></a>
-                <a href="https://instagram.com/raphaelonukufoundation" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/instagram.svg" alt="Instagram" style="width: 20px; height: 20px;"></a>
-                <a href="https://linkedin.com/company/raphael-onuku-foundation" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/linkedin.svg" alt="LinkedIn" style="width: 20px; height: 20px;"></a>
+                <a href="https://www.damsa.network" style="color: #0A1128; text-decoration: none; font-size: 14px; font-weight: bold;">www.damsa.network</a>
               </div>
-              <p style="color: #6B7280; font-size: 12px; margin: 0 0 10px 0;">&copy; ${new Date().getFullYear()} Raphael Onuku Foundation. All Rights Reserved.</p>
-              <p style="margin: 0; font-size: 12px; color: #6B7280;">
-                No. 23, Dan Asogwa Crescent Street, Eburummiri, Nsukka, Enugu State, Nigeria
-              </p>
+           
+              <p style="color: #6B7280; font-size: 12px; margin: 0 0 10px 0;">&copy; ${new Date().getFullYear()} DAMSA. All Rights Reserved.</p>
             </div>
           </div>
         `,
       });
 
-      // 3. Send notification to admin (optional)
+      // 3. Send notification to admin with brand color
       await transporter.sendMail({
         ...mailOptions,
-        subject: "New Newsletter Subscription - Raphael Onuku Foundation",
+        subject: "New Newsletter Subscription - DAMSA",
         html: `
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
-            <!-- Header with Logo -->
-            <div style="text-align: center; margin-bottom: 20px; padding: 20px; background: linear-gradient(to right, #1075BB, #0d5f91);">
-              <div style="display: inline-block; background-color: #ffffff; color: #1075BB; padding: 10px 20px; border-radius: 8px; font-size: 18px; font-weight: bold;">
-                Raphael Onuku Foundation
-              </div>
-            </div>
-            
-            <div style="background-color: #f8f9fa; border-left: 4px solid #1075BB; padding: 15px; margin-bottom: 20px;">
-              <h2 style="color: #333; margin: 0 0 15px 0;">New Newsletter Subscription</h2>
+            <div style="background-color: rgba(10,17,40,0.05); border-left: 4px solid #0A1128; padding: 15px; margin-bottom: 20px;">
+              <h2 style="color: #0A1128; margin: 0 0 15px 0;">New Newsletter Subscription</h2>
               <p style="margin: 0;"><strong>Date:</strong> ${new Date().toLocaleString()}</p>
             </div>
             
-            <div style="background-color: white; border: 1px solid #dee2e6; border-radius: 4px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+            <div style="background-color: white; border: 1px solid #E5E7EB; border-radius: 4px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(10,17,40,0.1);">
               <p style="margin: 0 0 10px 0;"><strong>Email:</strong> ${
                 body.email
               }</p>
@@ -145,9 +129,8 @@ export async function POST(request: any) {
               <p style="margin: 0 0 10px 0;"><strong>Signup Date:</strong> ${new Date().toLocaleDateString()}</p>
             </div>
             
-            <div style="font-size: 12px; color: #6c757d; text-align: center; margin-top: 20px;">
+            <div style="font-size: 12px; color: #6B7280; text-align: center; margin-top: 20px;">
               <p>This subscriber has been added to your Brevo newsletter list.</p>
-              <p style="margin-top: 10px; color: #ffffff;">No. 23, Dan Asogwa Crescent Street, Eburummiri, Nsukka, Enugu State, Nigeria</p>
             </div>
           </div>
         `,
@@ -162,7 +145,6 @@ export async function POST(request: any) {
       return NextResponse.json(
         {
           error: "Failed to process subscription",
-          message: error.message,
         },
         { status: 500 }
       );

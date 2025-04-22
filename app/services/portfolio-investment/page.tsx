@@ -878,7 +878,7 @@ export default function PortfolioInvestmentPage() {
           <div className="inline-flex items-center justify-center mb-6">
             <Users className="h-6 w-6 text-purple-400 mr-2" />
             <span className="text-indigo-100 font-medium">
-              Join 500+ investors who trust DAMSA
+              Join 500+ smart earners who trust DAMSA
             </span>
           </div>
 
