@@ -40,9 +40,9 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center space-x-2 group">
+            <div className="flex items-center space-x-2 group">
               <DAMSALogo />
-            </Link>
+            </div>
 
             <p className="text-indigo-100/60 leading-relaxed">
               Leveraging Digital Asset & Protocols to create a better future for
