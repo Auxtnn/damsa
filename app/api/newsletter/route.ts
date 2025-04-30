@@ -1,13 +1,8 @@
 import { transporter, mailOptions } from "@/app/constant/nodemailer";
 import { NextResponse } from "next/server";
 
-// const BREVO_URL = process.env.BREVO_API_URL;
-
-// const BREVO_KEY = process.env.BREVO_API_KEY;
-
-const BREVO_URL = "https://api.brevo.com/v3/contacts";
-const BREVO_KEY =
-  "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";
+const BREVO_URL = process.env.BREVO_API_URL;
+const BREVO_KEY = process.env.BREVO_API_KEY;
 
 export async function POST(request: any) {
   if (request.method === "POST") {
@@ -47,17 +42,34 @@ export async function POST(request: any) {
         }),
       });
 
-      const brevoData = await brevoResponse.json();
+      // Handle potential empty response properly
+      let brevoData = {};
+      try {
+        const responseText = await brevoResponse.text();
+        brevoData = responseText ? JSON.parse(responseText) : {};
+      } catch (parseError) {
+        console.error("Failed to parse Brevo response:", parseError);
+        // Continue with empty object if parsing fails
+      }
+
+      // Check if contact already exists
+      let contactAlreadyExists = false;
 
       if (!brevoResponse.ok) {
         console.error("Brevo API error:", brevoData);
         // If the error is that the contact already exists, still send a confirmation
         if (
-          brevoResponse.status !== 400 ||
-          !brevoData.message?.includes("Contact already exist")
+          brevoResponse.status === 400 &&
+          brevoData.message?.includes("Contact already exist")
         ) {
+          console.log(
+            "Contact already exists, continuing with confirmation email"
+          );
+          contactAlreadyExists = true;
+        } else {
           throw new Error(
-            brevoData.message || "Failed to subscribe to newsletter"
+            (brevoData && brevoData.message) ||
+              `Failed to subscribe to newsletter (Status: ${brevoResponse.status})`
           );
         }
       }
@@ -144,10 +156,20 @@ export async function POST(request: any) {
         `,
       });
 
-      return NextResponse.json({
-        message: "Successfully subscribed to newsletter",
-        success: true,
-      });
+      // Return appropriate response based on whether contact was new or already existed
+      if (contactAlreadyExists) {
+        return NextResponse.json({
+          message: "You're already subscribed to our newsletter!",
+          success: true,
+          alreadySubscribed: true,
+        });
+      } else {
+        return NextResponse.json({
+          message: "Successfully subscribed to newsletter",
+          success: true,
+          alreadySubscribed: false,
+        });
+      }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
       return NextResponse.json(

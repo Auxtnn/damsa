@@ -16,7 +16,7 @@ export default function PieConcepts() {
       letter: "P",
       title: "PC or Phone",
       description:
-        "Basic device to access digital asset platforms and manage your portfolio",
+        "Basic device to access digital asset protocols and share resources (Chips, sensors & more)",
       icon: <Smartphone className="w-8 h-8" />,
       gradientFrom: "from-indigo-500",
       gradientTo: "to-blue-500",
@@ -24,9 +24,9 @@ export default function PieConcepts() {
     },
     {
       letter: "I",
-      title: "Internet",
+      title: "Internet (Web or App Protocol)",
       description:
-        "Connection to the global network of digital asset opportunities and communities",
+        "Connection to access web or app protocols that let you share resources for rewards.",
       icon: <Wifi className="w-8 h-8" />,
       gradientFrom: "from-purple-500",
       gradientTo: "to-indigo-500",
@@ -34,9 +34,9 @@ export default function PieConcepts() {
     },
     {
       letter: "E",
-      title: "Energy",
+      title: "Energy (Time or Capital)",
       description:
-        "Commitment of time or capital energy in building your digital future",
+        "Commitment of time or capital in contributing to the development of the web",
       icon: <Zap className="w-8 h-8" />,
       gradientFrom: "from-fuchsia-500",
       gradientTo: "to-purple-500",
@@ -174,7 +174,7 @@ export default function PieConcepts() {
 
                 {/* Content */}
                 <div className="relative z-10 text-center">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-4 text-gradient-primary group-hover:text-shadow-glow transition-all duration-500">
+                  <h3 className="text-xl sm:text-xl font-bold mb-4 text-gradient-primary group-hover:text-shadow-glow transition-all duration-500">
                     {item.title}
                   </h3>
                   <p className="text-indigo-100/70 leading-relaxed">

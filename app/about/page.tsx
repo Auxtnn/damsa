@@ -82,9 +82,9 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Digital Asset & Protocols Agency revolutionizing how the world
-            interacts with digital assets through curated media and DLT
-            protocols.
+            DAMSA which is an acronym for Digital Asset Machine & Service Agents
+            transforms your machine resources (chips & sensors) into digital
+            assets via protocols that empower everyone on the web! 🚀💻
           </motion.p>
         </div>
       </section>
@@ -117,16 +117,15 @@ export default function AboutPage() {
 
               <p className="text-indigo-100/80 mb-6 leading-relaxed">
                 To create a world where digital assets are accessible to
-                everyone, empowering individuals and organizations to
-                participate in the decentralized economy with confidence and
-                security.
+                everyone, empowering anyone to participate in the digital
+                economy with confidence and security.
               </p>
 
               <p className="text-indigo-100/80 leading-relaxed">
-                We envision a future where the benefits of blockchain technology
-                and digital assets are seamlessly integrated into daily life,
-                creating new opportunities for wealth creation, financial
-                inclusion, and technological innovation.
+                We envision a future where human and machines co-opt for greater
+                good seamlessly leveraging digital assets and protocols in our
+                day to day lives, creating new opportunities for wealth
+                creation, financial inclusion, and innovation.
               </p>
             </motion.div>
 
@@ -150,16 +149,15 @@ export default function AboutPage() {
               <p className="text-indigo-100/80 mb-6 leading-relaxed">
                 To democratize access to digital assets by providing expert
                 guidance, innovative solutions, and quality educational
-                resources that enable anyone to navigate this complex landscape
-                successfully.
+                resources that enable anyone to profit from the web.
               </p>
 
               <p className="text-indigo-100/80 leading-relaxed">
                 We are committed to breaking down barriers to entry, exposing
-                scams, and creating transparent pathways for both active and
-                passive income generation through digital assets and protocols,
-                while contributing to charitable causes that create positive
-                social impact.
+                scams, and creating sustainable solutions for anyone to profit
+                from the web through digital assets and protocols, while
+                contributing to charitable causes that create
+                positive social impact.
               </p>
             </motion.div>
           </div>

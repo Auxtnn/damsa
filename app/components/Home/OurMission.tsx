@@ -83,9 +83,9 @@ export default function OurMission() {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            At DAMSA, we revolutionize digital asset access and blockchain
-            technology, empowering global users to generate sustainable income
-            safely.
+            At DAMSA, we transform your phone/PC resources (chips & sensors)
+            into digital assets via protocols that empower everyone on the web!
+            🚀💻
           </motion.p>
         </motion.div>
 

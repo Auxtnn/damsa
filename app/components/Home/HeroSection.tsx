@@ -120,8 +120,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          Curating media content for digital assets mastery & providing DLT
-          solutions that empower anyone for greater good.
+          DAMSA is building a network of machines using digital assets and
+          protocols to contribute to an open web that empowers everyone. Join
+          over 1 million people sharing their machine resources and earning
+          digital assets through protocols.
         </motion.p>
 
         {/* CTA */}

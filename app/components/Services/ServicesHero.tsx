@@ -70,9 +70,9 @@ export default function ServicesHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Comprehensive digital asset solutions designed to empower your
-          financial future. From portfolio management to education, we provide
-          the tools for your success.
+          Tailored digital asset solutions designed to empower your financial
+          future. From digital assets & protocols to education, we provide the
+          tools for your success.
         </motion.p>
       </div>
     </section>
